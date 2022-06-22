@@ -13,8 +13,6 @@ struct SalesSummary: Identifiable {
     let sales: Int
     
     var id: Date {weekday}
-    
-    
 }
 
 let newDelhiData: [SalesSummary] = [
@@ -131,7 +129,7 @@ struct BarChartTwo: View {
                             }
                         }
                     }
-                }
+                }.foregroundColor(selectedColor)
             }
             
             Picker("City", selection: $cityName.animation(.easeInOut)) {
