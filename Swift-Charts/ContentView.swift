@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  BarView.swift
 //  Swift-Charts
 //
 //  Created by Gokul Nair on 20/06/22.
@@ -22,27 +22,32 @@ let sales: [Pizzas] = [
     .init(name: "Dip Dish", sales: 300)
 ]
 
-struct ContentView: View {
+struct BarView: View {
     var body: some View {
-        NavigationStack {
+        
+        VStack {
+            
+            Text("Bar Graph")
+                .font(.largeTitle)
+                .bold()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text("Basic Bar Graph")
+                .font(.callout)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
             Chart (sales) { element in
                 BarMark (
                     x: .value("Name", element.name),
                     y: .value("Sales", element.sales)
                 )
             }
-            
-            .navigationTitle("Swift")
-            
-        }.frame(height: 500)
-            .padding(5)
-        
-        
+        }.padding(10)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        BarView()
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct Swift_ChartsApp: App {
     var body: some Scene {
         WindowGroup {
-            BarChartTwo()
+            MenueView()
         }
     }
 }

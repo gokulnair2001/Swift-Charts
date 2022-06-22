@@ -23,18 +23,29 @@ let seriesData: [Series] = [
 ]
 
 struct LineChart: View {
+    
+    @State var isOnlyLineChart: Bool = false
+    
     var body: some View {
         VStack {
-         
-            Text("Line Chart")
-                .font(.largeTitle)
-                .bold()
-                .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Sales graph")
-                .font(.callout)
-                .foregroundColor(.black).opacity(0.5)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            HStack {
+                VStack {
+                    Text(isOnlyLineChart ? "Line + Point Chart" : "Line Chart")
+                        .font(.largeTitle)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("Sales graph")
+                        .font(.callout)
+                        .foregroundColor(.black).opacity(0.5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Toggle(isOn: $isOnlyLineChart.animation()) {
+                    Text("")
+                }
+            }
             
             Chart(seriesData) {series in
                 ForEach(series.sales) { element in
@@ -44,13 +55,15 @@ struct LineChart: View {
                     ).foregroundStyle(by: .value("City", series.city))
                     
                     
-                    PointMark(
-                        x: .value("Day", element.weekday, unit: .day), y: .value("City", element.sales)
-                    )
-                    .foregroundStyle(by: .value("City", series.city))
-                    .symbol(by: .value("City", series.city))
+                    if isOnlyLineChart {
+                        PointMark(
+                            x: .value("Day", element.weekday, unit: .day), y: .value("City", element.sales)
+                        )
+                        .foregroundStyle(by: .value("City", series.city))
+                        .symbol(by: .value("City", series.city))
+                    }
                     
-                   
+                    
                 }
             }.frame(height: 350)
             
